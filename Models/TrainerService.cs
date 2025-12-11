@@ -1,6 +1,5 @@
 ﻿namespace FitnessCenterProject.Models
 {
-    // Models/TrainerService.cs
     public class TrainerService
     {
         public int TrainerServiceId { get; set; }
