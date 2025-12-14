@@ -8,12 +8,12 @@ namespace FitnessCenterProject.Models
         [Key]
         public int AvailabilityId { get; set; }
 
-        public int Day { get; set; }       // 0-6 or use enum DayOfWeek
+        public DayOfWeek Day { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-
+        [Display(Name = "Trainer")]
         public int TrainerId { get; set; }
-        public Trainer Trainer { get; set; }
+        public Trainer? Trainer { get; set; }
     }
 
 }

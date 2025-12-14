@@ -29,6 +29,11 @@ namespace FitnessCenterProject.Data
             {
                 fk.DeleteBehavior = DeleteBehavior.NoAction;
             }
+            //Veritabanında Day artık string olarak saklanır(nvarchar)
+            builder.Entity<TrainerAvailability>()
+                .Property(x => x.Day)
+                .HasConversion<string>();
+
         }
 
 
