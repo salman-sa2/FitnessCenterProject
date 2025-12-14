@@ -9,9 +9,9 @@
         public TimeSpan CloseTime { get; set; }
 
         // Navigation
-        public ICollection<Service> Services { get; set; }
-        public ICollection<Trainer> Trainers { get; set; }
-        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<Service> Services { get; set; } = new List<Service>();
+        public ICollection<Trainer> Trainers { get; set; } = new List<Trainer>();
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 
 }
