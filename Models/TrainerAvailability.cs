@@ -1,7 +1,11 @@
-﻿namespace FitnessCenterProject.Models
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace FitnessCenterProject.Models
 {
     public class TrainerAvailability
     {
+        [Key]
         public int AvailabilityId { get; set; }
 
         public int Day { get; set; }       // 0-6 or use enum DayOfWeek

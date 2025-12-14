@@ -1,6 +1,6 @@
 ﻿namespace FitnessCenterProject.Models
 {
-    public class User
+    public class UserOld
     {
         public int UserId { get; set; }
         public string Name { get; set; }

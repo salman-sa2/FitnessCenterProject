@@ -1,6 +1,8 @@
-﻿namespace FitnessCenterProject.Models
+﻿using FitnessCenterProject.Data;
+
+namespace FitnessCenterProject.Models
 {
-    //zvf
+    
     public class Appointment
     {
         public int AppointmentId { get; set; }
@@ -11,8 +13,8 @@
         public decimal Price { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }      
+        public ApplicationUser User { get; set; }
 
         public int ServiceId { get; set; }
         public Service Service { get; set; }
