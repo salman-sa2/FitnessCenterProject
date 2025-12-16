@@ -26,7 +26,7 @@ namespace FitnessCenterProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: TrainerServices/Details/5
+        // GET:Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainerService);
         }
 
-        // GET: TrainerServices/Create
+        // GET:Create
         public IActionResult Create()
         {
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "Name");
@@ -54,9 +54,7 @@ namespace FitnessCenterProject.Controllers
             return View();
         }
 
-        // POST: TrainerServices/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TrainerServiceId,TrainerId,ServiceId")] TrainerService trainerService)
@@ -72,7 +70,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainerService);
         }
 
-        // GET: TrainerServices/Edit/5
+        // GET:Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,9 +88,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainerService);
         }
 
-        // POST: TrainerServices/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TrainerServiceId,TrainerId,ServiceId")] TrainerService trainerService)
@@ -147,7 +143,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainerService);
         }
 
-        // POST: TrainerServices/Delete/5
+        // POST:Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

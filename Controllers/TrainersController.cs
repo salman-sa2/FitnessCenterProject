@@ -26,7 +26,7 @@ namespace FitnessCenterProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Trainers/Details/5
+        // GET:Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,16 +45,14 @@ namespace FitnessCenterProject.Controllers
             return View(trainer);
         }
 
-        // GET: Trainers/Create
+        // GET:Create
         public IActionResult Create()
         {
             ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "Name");
             return View();
         }
 
-        // POST: Trainers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TrainerId,Name,Email,Specialization,GymId")] Trainer trainer)
@@ -69,7 +67,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainer);
         }
 
-        // GET: Trainers/Edit/5
+        // GET:Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,9 +84,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainer);
         }
 
-        // POST: Trainers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TrainerId,Name,Email,Specialization,GymId")] Trainer trainer)
@@ -122,7 +118,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainer);
         }
 
-        // GET: Trainers/Delete/5
+        // GET:Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +137,7 @@ namespace FitnessCenterProject.Controllers
             return View(trainer);
         }
 
-        // POST: Trainers/Delete/5
+        // POST:Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

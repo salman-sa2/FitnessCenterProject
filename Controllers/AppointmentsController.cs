@@ -31,7 +31,7 @@ namespace FitnessCenterProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Appointments/Details/5
+        // GET:Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,7 +53,7 @@ namespace FitnessCenterProject.Controllers
             return View(appointment);
         }
 
-        // GET: Appointments/Create
+        // GET:Create
         public IActionResult Create()
         {
             ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "Name");
@@ -63,9 +63,7 @@ namespace FitnessCenterProject.Controllers
             return View();
         }
 
-        // POST: Appointments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AppointmentId,Date,StartTime,EndTime,Status,Price,ServiceId,TrainerId,GymId")] Appointment appointment)
@@ -74,7 +72,7 @@ namespace FitnessCenterProject.Controllers
             if (string.IsNullOrEmpty(userId))
                 return Challenge(); // login sayfasına atar
 
-            appointment.CreatedAt = DateTime.Now; // veya DateTime.UtcNow
+            appointment.CreatedAt = DateTime.Now; //DateTime.UtcNow
             appointment.UserId = _userManager.GetUserId(User);
 
             if (ModelState.IsValid)
@@ -90,7 +88,7 @@ namespace FitnessCenterProject.Controllers
             return View(appointment);
         }
 
-        // GET: Appointments/Edit/5
+        // GET:Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,9 +108,7 @@ namespace FitnessCenterProject.Controllers
             return View(appointment);
         }
 
-        // POST: Appointments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AppointmentId,Date,StartTime,EndTime,Status,Price,CreatedAt,UserId,ServiceId,TrainerId,GymId")] Appointment appointment)
@@ -149,7 +145,7 @@ namespace FitnessCenterProject.Controllers
             return View(appointment);
         }
 
-        // GET: Appointments/Delete/5
+        // GET:Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -171,7 +167,7 @@ namespace FitnessCenterProject.Controllers
             return View(appointment);
         }
 
-        // POST: Appointments/Delete/5
+        // POST:Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

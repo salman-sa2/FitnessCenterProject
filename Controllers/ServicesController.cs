@@ -26,7 +26,7 @@ namespace FitnessCenterProject.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Services/Details/5
+        // GET:Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,7 +45,7 @@ namespace FitnessCenterProject.Controllers
             return View(service);
         }
 
-        // GET: Services/Create
+        // GET:Create
         public IActionResult Create()
         {
             ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "Name");
@@ -53,8 +53,6 @@ namespace FitnessCenterProject.Controllers
         }
 
         // POST: Services/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ServiceId,Name,Duration,Price,GymId")] Service service)
@@ -69,7 +67,7 @@ namespace FitnessCenterProject.Controllers
             return View(service);
         }
 
-        // GET: Services/Edit/5
+        // GET: Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,9 +84,7 @@ namespace FitnessCenterProject.Controllers
             return View(service);
         }
 
-        // POST: Services/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ServiceId,Name,Duration,Price,GymId")] Service service)
@@ -122,7 +118,7 @@ namespace FitnessCenterProject.Controllers
             return View(service);
         }
 
-        // GET: Services/Delete/5
+        // GET:Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +137,7 @@ namespace FitnessCenterProject.Controllers
             return View(service);
         }
 
-        // POST: Services/Delete/5
+        // POST:Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

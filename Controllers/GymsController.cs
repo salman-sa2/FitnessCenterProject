@@ -25,7 +25,7 @@ namespace FitnessCenterProject.Controllers
             return View(await _context.Gyms.ToListAsync());
         }
 
-        // GET: Gyms/Details/5
+        // GET:Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,15 +43,13 @@ namespace FitnessCenterProject.Controllers
             return View(gym);
         }
 
-        // GET: Gyms/Create
+        // GET:Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Gyms/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("GymId,Name,OpenTime,CloseTime")] Gym gym)
@@ -65,7 +63,7 @@ namespace FitnessCenterProject.Controllers
             return View(gym);
         }
 
-        // GET: Gyms/Edit/5
+        // GET:Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,9 +79,7 @@ namespace FitnessCenterProject.Controllers
             return View(gym);
         }
 
-        // POST: Gyms/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST:Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("GymId,Name,OpenTime,CloseTime")] Gym gym)
@@ -116,7 +112,7 @@ namespace FitnessCenterProject.Controllers
             return View(gym);
         }
 
-        // GET: Gyms/Delete/5
+        // GET:Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +130,7 @@ namespace FitnessCenterProject.Controllers
             return View(gym);
         }
 
-        // POST: Gyms/Delete/5
+        // POST:Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
