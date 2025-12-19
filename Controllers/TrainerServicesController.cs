@@ -143,7 +143,8 @@ namespace FitnessCenterProject.Controllers
             return View(trainerService);
         }
 
-        // POST:Delete
+        // POST:
+        // Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
