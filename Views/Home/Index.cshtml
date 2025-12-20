@@ -1,8 +1,68 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-4 mb-4">💪 Fitness Center'a Hoş Geldiniz!</h1>
+            <p class="lead mb-4">Sağlıklı yaşam yolculuğunuzda yanınızdayız. Antrenörlerimiz ve modern tesislerimizle hedeflerinize ulaşın.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h2 class="card-title mb-3">🏋️ Antrenörler</h1>
+                <p class="card-text">Uzman antrenörlerimizle kişiselleştirilmiş antrenman programları oluşturun.</p>
+                <a asp-controller="Trainers" asp-action="Index" class="btn btn-primary">Antrenörleri Gör</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h2 class="card-title mb-3">📅 Randevu Al</h1>
+                <p class="card-text">Size uygun zaman diliminde randevu alın ve antrenmanınıza başlayın.</p>
+                <a asp-controller="Appointments" asp-action="Create" class="btn btn-primary">Randevu Oluştur</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h2 class="card-title mb-3">🤖 AI Öneri</h1>
+                <p class="card-text">Yapay zeka destekli kişiselleştirilmiş egzersiz ve beslenme önerileri alın.</p>
+                <a asp-controller="AIRecommendation" asp-action="Index" class="btn btn-primary">Öneri Al</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title mb-3">🎯 Neden Bizi Seçmelisiniz?</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✅ Uzman antrenör kadrosu</li>
+                            <li class="mb-2">✅ Modern ve güvenli tesisler</li>
+                            <li class="mb-2">✅ Kişiselleştirilmiş programlar</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✅ Esnek randevu sistemi</li>
+                            <li class="mb-2">✅ AI destekli öneriler</li>
+                            <li class="mb-2">✅ 7/24 online erişim</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

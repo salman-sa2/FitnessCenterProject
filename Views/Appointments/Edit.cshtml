@@ -1,4 +1,4 @@
-﻿@model FitnessCenterProject.Models.Appointment
+@model FitnessCenterProject.Models.Appointment
 
 @{
     ViewData["Title"] = "Edit";
@@ -66,7 +66,14 @@
 </div>
 
 <div>
-    <a asp-action="MyAppointments">Back to List</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Index">Back to List</a>
+    }
+    else
+    {
+        <a asp-action="MyAppointments">Back to List</a>
+    }
 </div>
 
 @section Scripts {

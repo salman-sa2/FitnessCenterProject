@@ -1,4 +1,4 @@
-﻿@model FitnessCenterProject.Models.Appointment
+@model FitnessCenterProject.Models.Appointment
 
 @{
     ViewData["Title"] = "Delete";
@@ -76,6 +76,13 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="AppointmentId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="MyAppointments">Back to List</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Index">Back to List</a>
+        }
+        else
+        {
+            <a asp-action="MyAppointments">Back to List</a>
+        }
     </form>
 </div>
