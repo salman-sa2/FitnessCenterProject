@@ -24,25 +24,36 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Gyms" asp-action="Index">Gyms</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Services" asp-action="Index">Services</a>
-                        </li>
-                        <li class="nav-item">
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-controller="Services" asp-action="Index">Services</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link text-dark" asp-controller="Trainers" asp-action="Index">Trainers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="TrainerAvailabilities" asp-action="Index">TrainerAvailabilities</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="TrainerServices" asp-action="Index">TrainerServices</a>
-                        </li>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-controller="TrainerAvailabilities" asp-action="Index">Trainer Availabilities</a>
+						</li>
+						
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Member"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Appointments" asp-action="MyAppointments">My Appointments</a>
+                            </li>
+                        }
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin") || !User.IsInRole("Member"))
+                        {
                         <li class="nav-item">
 							<a class="nav-link text-dark" asp-controller="Appointments" asp-action="Index">Appointments</a>
-						</li>                     
+						</li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Gyms" asp-action="Index">Gyms</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="TrainerServices" asp-action="Index">Trainer Services</a>
+                         </li>
+						}
+                                            
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

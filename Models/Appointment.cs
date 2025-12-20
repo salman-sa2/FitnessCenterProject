@@ -10,7 +10,7 @@ namespace FitnessCenterProject.Models
         public DateTime Date { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
         public decimal Price { get; set; }
         public DateTime? CreatedAt { get; set; }
 

@@ -12,52 +12,62 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="GymId" class="control-label"></label>
+                <select asp-for="GymId" class="form-control" asp-items="ViewBag.GymId" id="GymId">
+                    <option value="">-- Gym Seç --</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" type="date" class="form-control" />
+                <input asp-for="Date" type="date" class="form-control" id="Date" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" type="time" class="form-control" />
+                <input asp-for="StartTime" type="time" class="form-control" id="StartTime" />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" type="time" class="form-control" />
+                <input asp-for="EndTime" type="time" class="form-control" id="EndTime" />
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            @* <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <input asp-for="Status" class="form-control" />
                 <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
+			</div> *@
+            
+            <div class="form-group">
+				<label asp-for="ServiceId" class="control-label"></label>
+				<select asp-for="ServiceId" class="form-control" asp-items="ViewBag.ServiceId" id="ServiceId">
+					<option value="">-- Service Seç --</option>
+				</select>
+			</div>
+
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" class="form-control" id="Price" readonly />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div> *@
-            @* <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="ServiceId" class="control-label"></label>
-                <select asp-for="ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
-            </div>
+
+            
+
+            <!-- ✅ Trainer: ViewBag.TrainerId kaldırıyoruz, JS ile dolacak -->
             <div class="form-group">
                 <label asp-for="TrainerId" class="control-label"></label>
-                <select asp-for="TrainerId" class ="form-control" asp-items="ViewBag.TrainerId"></select>
+                <select asp-for="TrainerId" class="form-control" id="TrainerId">
+                    <option value="">(Önce tarih/saat/gym seç)</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="GymId" class="control-label"></label>
-                <select asp-for="GymId" class ="form-control" asp-items="ViewBag.GymId"></select>
-            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -70,5 +80,99 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const dateEl = document.getElementById("Date");
+        const startEl = document.getElementById("StartTime");
+        const endEl = document.getElementById("EndTime");
+        const gymEl = document.getElementById("GymId");
+        const trainerEl = document.getElementById("TrainerId");
+
+        async function loadAvailableTrainers() {
+            const date = dateEl.value;      // yyyy-mm-dd
+            const start = startEl.value;    // HH:mm
+            const end = endEl.value;        // HH:mm
+            const gymId = gymEl.value;
+
+            if (!date || !start || !end || !gymId) {
+                trainerEl.innerHTML = `<option value="">(Önce tarih/saat/gym seç)</option>`;
+                return;
+            }
+
+            if (end <= start) {
+                trainerEl.innerHTML = `<option value="">Bitiş saati başlangıçtan büyük olmalı</option>`;
+                return;
+            }
+
+            const url = `/api/TrainersApi/available?date=${encodeURIComponent(date)}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}&gymId=${encodeURIComponent(gymId)}`;
+
+            try {
+                const res = await fetch(url);
+                if (!res.ok) {
+                    trainerEl.innerHTML = `<option value="">API hata: ${res.status}</option>`;
+                    return;
+                }
+
+                const data = await res.json(); // [{ trainerId, name }, ...]
+
+                trainerEl.innerHTML = "";
+
+                if (!data || data.length === 0) {
+                    trainerEl.innerHTML = `<option value="">Uygun trainer yok</option>`;
+                    return;
+                }
+
+                trainerEl.insertAdjacentHTML("beforeend", `<option value="">-- Trainer Seç --</option>`);
+
+                for (const t of data) {
+                    trainerEl.insertAdjacentHTML("beforeend",
+                        `<option value="${t.trainerId}">${t.name}</option>`
+                    );
+                }
+            } catch (e) {
+                trainerEl.innerHTML = `<option value="">Bağlantı hatası</option>`;
+            }
+        }
+
+        dateEl.addEventListener("change", loadAvailableTrainers);
+        startEl.addEventListener("change", loadAvailableTrainers);
+        endEl.addEventListener("change", loadAvailableTrainers);
+        gymEl.addEventListener("change", loadAvailableTrainers);
+    </script>
+
+    <script>
+        const serviceEl = document.getElementById("ServiceId");
+        const priceEl = document.getElementById("Price");
+
+        async function loadServicePrice() {
+            const serviceId = serviceEl.value;
+            if (!serviceId) {
+                priceEl.value = "";
+                return;
+            }
+
+            const res = await fetch(`/api/ServicesApi/${serviceId}`);
+            if (!res.ok) {
+                priceEl.value = "";
+                return;
+            }
+
+            const data = await res.json(); // { price, ... }
+            priceEl.value = data.price;
+        }
+
+        serviceEl.addEventListener("change", async () => {
+            await loadServicePrice();
+            await loadAvailableTrainers(); // trainer listesi de service değişince güncellensin
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await loadServicePrice();
+            await loadAvailableTrainers();
+        });
+    </script>
+
 }

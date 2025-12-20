@@ -36,7 +36,7 @@ namespace FitnessCenterProject.Controllers.Api
             TimeSpan end,
             int? gymId)
         {
-            var day = date.DayOfWeek;
+            var day = date.DayOfWeek; ;
 
             var query = _context.Trainers
                 .Include(t => t.Availabilities)

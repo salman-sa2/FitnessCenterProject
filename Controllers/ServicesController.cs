@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FitnessCenterProject.Data;
+using FitnessCenterProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FitnessCenterProject.Data;
-using FitnessCenterProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FitnessCenterProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ServicesController : Controller
     {
         private readonly ApplicationDbContext _context;

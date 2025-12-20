@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FitnessCenterProject.Data;
+using FitnessCenterProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FitnessCenterProject.Data;
-using FitnessCenterProject.Models;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FitnessCenterProject.Controllers
 {
@@ -24,15 +25,33 @@ namespace FitnessCenterProject.Controllers
             _userManager = userManager;
         }
 
+
         // GET: Appointments
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Appointments.Include(a => a.Gym).Include(a => a.Service).Include(a => a.Trainer).Include(a => a.User);
             return View(await applicationDbContext.ToListAsync());
         }
+        [Authorize(Roles = "Member")]
+        public async Task<IActionResult> MyAppointments()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        // GET:Details
-        public async Task<IActionResult> Details(int? id)
+            var myList = await _context.Appointments
+                .Where(a => a.UserId == userId)
+                .Include(a => a.Service)
+                .Include(a => a.Trainer)
+                .Include(a => a.Gym)
+                .OrderByDescending(a => a.Date)
+                .ToListAsync();
+
+            return View(myList);
+        }
+
+
+    // GET:Details
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -74,11 +93,11 @@ namespace FitnessCenterProject.Controllers
 
             appointment.CreatedAt = DateTime.Now; //DateTime.UtcNow
             appointment.UserId = _userManager.GetUserId(User);
-
+            appointment.Status = "Approved";
             if (ModelState.IsValid)
             {
                 _context.Add(appointment);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();               
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GymId"] = new SelectList(_context.Gyms, "GymId", "Name", appointment.GymId);
