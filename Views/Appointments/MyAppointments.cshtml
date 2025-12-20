@@ -30,9 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.User)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Service)
             </th>
@@ -67,9 +67,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
+                </td> *@
                 <td>
                     @Html.DisplayFor(modelItem => item.Service.Name)
                 </td>

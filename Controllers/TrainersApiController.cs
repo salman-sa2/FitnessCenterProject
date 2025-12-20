@@ -34,17 +34,24 @@ namespace FitnessCenterProject.Controllers.Api
             DateTime date,
             TimeSpan start,
             TimeSpan end,
-            int? gymId)
+            int? gymId,
+            int? serviceId)
         {
             var day = date.DayOfWeek; ;
 
             var query = _context.Trainers
                 .Include(t => t.Availabilities)
                 .Include(t => t.Appointments)
+                .Include(t => t.TrainerServices)
                 .AsQueryable();
 
             if (gymId.HasValue)
                 query = query.Where(t => t.GymId == gymId.Value);
+            if (serviceId.HasValue)
+                query = query
+                    .Where(t =>
+                    t.TrainerServices.Any(ts =>
+                    ts.ServiceId == serviceId.Value));
 
             var available = await query
                 .Where(t =>
@@ -57,7 +64,8 @@ namespace FitnessCenterProject.Controllers.Api
                     !t.Appointments.Any(ap =>
                         ap.Date.Date == date.Date &&
                         ap.StartTime < end &&
-                        ap.EndTime > start
+                        ap.EndTime > start &&
+                        ap.Status != "Rejected"
                     )
                 )
                 .Select(t => new { t.TrainerId, t.Name })

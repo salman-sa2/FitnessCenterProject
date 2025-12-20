@@ -11,7 +11,7 @@ namespace FitnessCenterProject.Data
         public string? Gender { get; set; }
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // İlişki: 1 kullanıcı, N randevu
+        
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
