@@ -1,12 +1,11 @@
 @model FitnessCenterProject.Models.Appointment
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Yeni Randevu";
 }
 
-<h1>Create</h1>
+<h1>Yeni Randevu Oluştur</h1>
 
-<h4>Appointment</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -78,11 +77,11 @@
 <div>
     @if (User.IsInRole("Admin"))
     {
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Listeye Dön</a>
     }
     else
     {
-        <a asp-action="MyAppointments">Back to List</a>
+        <a asp-action="MyAppointments">Listeye Dön</a>
     }
 </div>
 

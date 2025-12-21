@@ -10,7 +10,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
+    {
+        options.SignIn.RequireConfirmedAccount = true;
+        // Şifre politikasını gevşet (Sau şifresi için)
+        options.Password.RequireDigit = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequiredLength = 3;
+    })
     .AddRoles<IdentityRole>() // Admin / Member rolleri icin
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -42,12 +51,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    await Roles.SeedRolesAsync(services);
-}
 
 using (var scope = app.Services.CreateScope())
 {

@@ -1,13 +1,12 @@
-﻿@model FitnessCenterProject.Models.TrainerService
+@model FitnessCenterProject.Models.TrainerService
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaylar";
 }
 
-<h1>Details</h1>
+<h1>Antrenör Servisi Detayları</h1>
 
 <div>
-    <h4>TrainerService</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -25,6 +24,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.TrainerServiceId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.TrainerServiceId">Düzenle</a> |
+    <a asp-action="Index">Listeye Dön</a>
 </div>

@@ -1,12 +1,11 @@
-﻿@model FitnessCenterProject.Models.TrainerAvailability
+@model FitnessCenterProject.Models.TrainerAvailability
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Yeni Müsaitlik";
 }
 
-<h1>Create</h1>
+<h1>Yeni Müsaitlik Ekle</h1>
 
-<h4>TrainerAvailability</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -34,14 +33,14 @@
                 <select asp-for="TrainerId" class ="form-control" asp-items="ViewBag.TrainerId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Oluştur" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Listeye Dön</a>
 </div>
 
 @section Scripts {

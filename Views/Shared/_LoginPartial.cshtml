@@ -8,7 +8,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Hesap Yönetimi">
             👤 @User.Identity?.Name
         </a>
     </li>

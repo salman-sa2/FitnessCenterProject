@@ -1,13 +1,11 @@
-﻿@model IEnumerable<FitnessCenterProject.Models.Gym>
+@model IEnumerable<FitnessCenterProject.Models.Gym>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Spor Salonları";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Yeni Spor Salonu Ekle</a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +35,9 @@
                 @Html.DisplayFor(modelItem => item.CloseTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GymId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GymId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GymId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.GymId">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.GymId">Detaylar</a> |
+                <a asp-action="Delete" asp-route-id="@item.GymId">Sil</a>
             </td>
         </tr>
 }

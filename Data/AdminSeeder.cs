@@ -13,22 +13,23 @@ public static class AdminSeeder
 
         const string adminRole = "Admin";
         var adminEmail = "g211210574@sakarya.edu.tr";
-        var adminPassword = "Sau@12345"; // ✅ güçlü şifre
+        var adminPassword = "sau";
 
         // Role yoksa oluştur
         if (!await roleManager.RoleExistsAsync(adminRole))
             await roleManager.CreateAsync(new IdentityRole(adminRole));
 
-        // Kullanıcı var mı?
+        // Mevcut admin kullanıcıyı bul
         var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
         if (adminUser == null)
         {
+            // Kullanıcı yoksa yeni oluştur
             adminUser = new ApplicationUser
             {
                 UserName = adminEmail,
                 Email = adminEmail,
-                EmailConfirmed = true // ✅ RequireConfirmedAccount true olduğu için
+                EmailConfirmed = true
             };
 
             var createResult = await userManager.CreateAsync(adminUser, adminPassword);
@@ -38,16 +39,24 @@ public static class AdminSeeder
         }
         else
         {
-            // varsa: EmailConfirmed true yap + şifreyi resetle (sen yeni şifre verdin diye)
+            // Kullanıcı varsa: EmailConfirmed true yap ve şifreyi güncelle
             adminUser.EmailConfirmed = true;
             await userManager.UpdateAsync(adminUser);
 
-            var token = await userManager.GeneratePasswordResetTokenAsync(adminUser);
-            var resetResult = await userManager.ResetPasswordAsync(adminUser, token, adminPassword);
+            // Şifreyi güncelle: RemovePassword + AddPassword yöntemi
+            var hasPassword = await userManager.HasPasswordAsync(adminUser);
+            if (hasPassword)
+            {
+                var removeResult = await userManager.RemovePasswordAsync(adminUser);
+                if (!removeResult.Succeeded)
+                    throw new Exception("Admin password remove failed: " +
+                        string.Join(" | ", removeResult.Errors.Select(e => e.Description)));
+            }
 
-            if (!resetResult.Succeeded)
-                throw new Exception("Admin password reset failed: " +
-                    string.Join(" | ", resetResult.Errors.Select(e => e.Description)));
+            var addResult = await userManager.AddPasswordAsync(adminUser, adminPassword);
+            if (!addResult.Succeeded)
+                throw new Exception("Admin password add failed: " +
+                    string.Join(" | ", addResult.Errors.Select(e => e.Description)));
         }
 
         // Role ata

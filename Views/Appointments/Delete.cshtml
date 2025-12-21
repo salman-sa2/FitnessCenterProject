@@ -75,14 +75,14 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="AppointmentId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
         @if (User.IsInRole("Admin"))
         {
-            <a asp-action="Index">Back to List</a>
+            <a asp-action="Index">Listeye Dön</a>
         }
         else
         {
-            <a asp-action="MyAppointments">Back to List</a>
+            <a asp-action="MyAppointments">Listeye Dön</a>
         }
     </form>
 </div>

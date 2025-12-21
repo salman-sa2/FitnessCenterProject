@@ -22,25 +22,25 @@
                 <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Services" asp-action="Index">Services</a>
+							<a class="nav-link text-dark" asp-controller="Services" asp-action="Index">Servisler</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Trainers" asp-action="Index">Trainers</a>
+							<a class="nav-link text-dark" asp-controller="Trainers" asp-action="Index">Antrenörler</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="TrainerAvailabilities" asp-action="Index">Trainer Availabilities</a>
+							<a class="nav-link text-dark" asp-controller="TrainerAvailabilities" asp-action="Index">Antrenör Müsaitlikleri</a>
 						</li>
 						
                         @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Member"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Appointments" asp-action="MyAppointments">My Appointments</a>
+                                <a class="nav-link text-dark" asp-controller="Appointments" asp-action="MyAppointments">Randevularım</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="AIRecommendation" asp-action="Index">AI Fitness Önerisi</a>
@@ -49,19 +49,22 @@
                         @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin") || !User.IsInRole("Member"))
                         {
                         <li class="nav-item">
-							<a class="nav-link text-dark" asp-controller="Appointments" asp-action="Index">Appointments</a>
+							<a class="nav-link text-dark" asp-controller="Appointments" asp-action="Index">Randevular</a>
 						</li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Gyms" asp-action="Index">Gyms</a>
+                            <a class="nav-link text-dark" asp-controller="Gyms" asp-action="Index">Spor Salonları</a>
                          </li>
                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="TrainerServices" asp-action="Index">Trainer Services</a>
+                            <a class="nav-link text-dark" asp-controller="TrainerServices" asp-action="Index">Antrenör Servisleri</a>
                          </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Appointments" asp-action="Pending">Pending Approvals</a>
-                         </li>
+                         
 						}
-                                            
+                        @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Appointments" asp-action="Pending">Bekleyen Onaylar</a>
+                         </li>
+                        }                 
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -76,7 +79,7 @@
 
     <footer class="footer">
         <div class="container text-center">
-            <p class="mb-0">&copy; 2025 - Fitness Center Project | <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+            <p class="mb-0">&copy; 2025 - Fitness Center Project | <a asp-area="" asp-controller="Home" asp-action="Privacy">Gizlilik</a></p>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

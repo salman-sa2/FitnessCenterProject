@@ -1,14 +1,12 @@
-﻿@model IEnumerable<FitnessCenterProject.Models.Trainer>
+@model IEnumerable<FitnessCenterProject.Models.Trainer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Antrenörler";
 }
-
-<h1>Index</h1>
 @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
 {
     <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Yeni Antrenör Ekle</a>
     </p>
 }
 <table class="table">
@@ -47,9 +45,9 @@
             @if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
           {
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TrainerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TrainerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TrainerId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.TrainerId">Düzenle</a> |
+                <a asp-action="Details" asp-route-id="@item.TrainerId">Detaylar</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrainerId">Sil</a>
             </td>
            }
         </tr>
